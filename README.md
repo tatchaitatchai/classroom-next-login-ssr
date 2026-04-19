@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Login SSR Demo
 
-## Getting Started
+โปรเจกต์การบ้านสำหรับการเรียนรู้ Next.js App Router พร้อม TypeScript และ Server-Side Rendering
 
-First, run the development server:
+## 📋 คำอธิบายโปรเจกต์
+
+โปรเจกต์นี้เป็นการสาธิตระบบ Login แบบง่าย โดยใช้ Next.js App Router เพื่อแสดงให้เห็นถึง:
+
+- **Server Component**: `app/page.tsx` เป็น Server Component ตาม default ของ App Router
+- **Client Component**: `LoginForm` เป็น Client Component ที่มี interactivity
+- **API Route Handler**: การตรวจสอบ login อยู่ใน `app/api/login/route.ts` ฝั่ง server
+- **ไม่มี Database**: ใช้ hardcoded username/password ใน route handler เพื่อการเรียนรู้
+
+## 🏗️ โครงสร้างโปรเจกต์
+
+```
+02_nextjs/
+├── app/
+│   ├── api/
+│   │   └── login/
+│   │       └── route.ts          # API endpoint สำหรับตรวจสอบ login
+│   ├── page.tsx                   # Server Component หน้าหลัก
+│   └── page.module.css            # CSS สำหรับหน้าหลัก
+├── components/
+│   ├── LoginForm.tsx              # Client Component สำหรับ login form
+│   ├── login-form.module.css      # CSS สำหรับ login form
+│   ├── EmailStatusCard.tsx        # Component แสดงสถานะอีเมล
+│   └── email-status-card.module.css
+├── package.json
+└── README.md
+```
+
+## 🚀 วิธีติดตั้งและรันโปรเจกต์
+
+### 1. ติดตั้ง dependencies
+
+```bash
+npm install
+```
+
+### 2. รัน development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. เปิดเบราว์เซอร์
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+เปิด [http://localhost:3000](http://localhost:3000) เพื่อดูผลลัพธ์
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔐 ข้อมูล Login สำหรับทดสอบ
 
-## Learn More
+```
+Email: admin@gmail.com
+Password: Admin123!
+```
 
-To learn more about Next.js, take a look at the following resources:
+## ✨ Features
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 1. LoginForm Component (Client Component)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- รับ input email และ password
+- Validation ฝั่ง client ก่อนส่ง request:
+  - **Email**: required, รูปแบบ email ถูกต้อง
+  - **Password**: required, มากกว่า 8 ตัว, มีตัวใหญ่ 1 ตัว, มีตัวเลข 1 ตัว, มีอักขระพิเศษ 1 ตัว
+- แสดง error message สีแดงเมื่อ validation ไม่ผ่าน
+- แสดง loading state ระหว่างส่ง request
+- แสดง success/error message หลังได้รับ response
 
-## Deploy on Vercel
+### 2. EmailStatusCard Component
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- แสดง email address
+- แสดงสถานะ Read/Unread
+- รับ props: `email` และ `isRead`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 3. API Route Handler
+
+- อยู่ที่ `app/api/login/route.ts`
+- ตรวจสอบ username/password ฝั่ง server
+- ไม่ใช้ database (ใช้ตัวแปร hardcoded)
+- ไม่ใช้ next-auth, jwt, หรือ session ที่ซับซ้อน
+- Response:
+  - **Success (200)**: `{ success: true, message: "Login Success" }`
+  - **Fail (401)**: `{ success: false, message: "Invalid username or password" }`
+  - **Bad Request (400)**: `{ success: false, message: "Email and password are required" }`
+
+## 🎨 UI/UX Features
+
+- Card layout สวยงาม
+- Responsive design
+- Gradient background
+- Hover effects บนปุ่ม
+- Success message สีเขียว
+- Error message สีแดง
+- Loading state ชัดเจน
+- Input border สีแดงเมื่อมี error
+
+## 🧪 การทำงานของระบบ
+
+1. ผู้ใช้กรอก email และ password ใน LoginForm
+2. Client-side validation ตรวจสอบข้อมูล
+3. ถ้าผ่าน validation ส่ง POST request ไปที่ `/api/login`
+4. Server-side (route handler) เปรียบเทียบกับค่าที่ hardcoded
+5. ส่ง response กลับมาพร้อม status code
+6. แสดงผลลัพธ์ใน UI
+
+## 📚 เทคโนโลยีที่ใช้
+
+- **Next.js** (latest version) - React framework
+- **TypeScript** - Type safety
+- **App Router** - Next.js routing system
+- **CSS Modules** - Scoped styling
+- **Route Handlers** - API endpoints
+
+## 📝 หมายเหตุ
+
+- โปรเจกต์นี้สร้างขึ้นเพื่อการเรียนรู้เท่านั้น
+- ไม่ควรนำไปใช้งานจริงในระบบ production
+- ไม่มีการเก็บข้อมูลใน database
+- ไม่มีระบบ authentication ที่สมบูรณ์
+- Username และ password ถูก hardcoded ใน server code
+
+## 🔧 การพัฒนาต่อ
+
+หากต้องการพัฒนาต่อ สามารถเพิ่ม:
+
+- Database integration (PostgreSQL, MongoDB)
+- Authentication library (NextAuth.js)
+- Session management
+- Password hashing
+- JWT tokens
+- Protected routes
+- User registration
+
+## 📄 License
+
+MIT
