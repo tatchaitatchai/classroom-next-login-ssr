@@ -1,7 +1,18 @@
 'use client';
 
 import { useState, FormEvent, ChangeEvent } from 'react';
-import styles from './login-form.module.css';
+import { CURRENT_THEME } from '@/themes/theme.config';
+import gradientStyles from '@/themes/gradient.module.css';
+import minimalStyles from '@/themes/minimal.module.css';
+import darkStyles from '@/themes/dark.module.css';
+
+const themeStyles = {
+  gradient: gradientStyles,
+  minimal: minimalStyles,
+  dark: darkStyles,
+};
+
+const styles = themeStyles[CURRENT_THEME];
 
 interface ValidationErrors {
   email?: string;
@@ -108,7 +119,7 @@ export default function LoginForm() {
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>Login Form</h2>
+      <h2 className={styles.formTitle}>Login Form</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGroup}>
           <label htmlFor="email" className={styles.label}>

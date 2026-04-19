@@ -55,6 +55,50 @@ Email: admin@gmail.com
 Password: Admin123!
 ```
 
+## 🎨 Theme System (เปลี่ยนหน้าตาได้ที่จุดเดียว!)
+
+โปรเจกต์นี้มี **3 themes** ที่หน้าตาต่างกันโดยสิ้นเชิง:
+
+### วิธีเปลี่ยน Theme:
+
+เปิดไฟล์ **`themes/theme.config.ts`** แล้วเปลี่ยนค่า `CURRENT_THEME`:
+
+```typescript
+export const CURRENT_THEME: ThemeName = 'gradient';  // เปลี่ยนตรงนี้!
+```
+
+### Themes ที่มี:
+
+1. **`'gradient'`** - Modern Gradient Theme
+   - พื้นหลัง gradient สีม่วง-ฟ้า
+   - Card ขาวมน มีเงาสวย
+   - ปุ่ม gradient พร้อม hover effect
+
+2. **`'minimal'`** - Minimal Clean Theme
+   - พื้นหลังสีเทาอ่อน
+   - Card ขาวแบบ flat มีกรอบบาง
+   - ปุ่มดำแบบเรียบง่าย
+
+3. **`'dark'`** - Cyberpunk Dark Theme
+   - พื้นหลังดำ มี gradient เข้ม
+   - Card ดำใสมีกรอบเขียว neon
+   - ปุ่มเขียว neon พร้อม glow effect
+
+### ตัวอย่าง:
+
+```typescript
+// Theme 1
+export const CURRENT_THEME: ThemeName = 'gradient';
+
+// Theme 2
+export const CURRENT_THEME: ThemeName = 'minimal';
+
+// Theme 3
+export const CURRENT_THEME: ThemeName = 'dark';
+```
+
+**หมายเหตุ:** แค่เปลี่ยนบรรทัดเดียว หน้าตาเปลี่ยนทั้งหมด! เหมาะสำหรับให้เพื่อนลอกส่งอาจารย์ 😉
+
 ## ✨ Features
 
 ### 1. LoginForm Component (Client Component)

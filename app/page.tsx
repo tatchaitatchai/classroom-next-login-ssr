@@ -1,24 +1,24 @@
 import LoginForm from '@/components/LoginForm';
 import EmailStatusCard from '@/components/EmailStatusCard';
-import styles from './page.module.css';
+import { CURRENT_THEME } from '@/themes/theme.config';
+import gradientStyles from '@/themes/gradient.module.css';
+import minimalStyles from '@/themes/minimal.module.css';
+import darkStyles from '@/themes/dark.module.css';
+
+const themeStyles = {
+  gradient: gradientStyles,
+  minimal: minimalStyles,
+  dark: darkStyles,
+};
+
+const styles = themeStyles[CURRENT_THEME];
 
 export default function Home() {
   return (
     <div className={styles.page}>
       <main className={styles.main}>
-        <h1 className={styles.title}>Next.js Login SSR Demo</h1>
-        
-        <div className={styles.section}>
-          <LoginForm />
-        </div>
-
-        <div className={styles.section}>
-          <h2 className={styles.subtitle}>Email Status Cards</h2>
-          <div className={styles.cardsContainer}>
-            <EmailStatusCard email="user1@example.com" isRead={true} />
-            <EmailStatusCard email="user2@example.com" isRead={false} />
-          </div>
-        </div>
+        <h1 className={styles.title}>Login</h1>
+        <LoginForm />
       </main>
     </div>
   );
